@@ -1,1 +1,58 @@
+<!DOCTYPE html><html>
+<head>
+<title>Smart Nifty Dashboard</title><style>
 
+body{
+background:#0d1b2a;
+color:white;
+font-family:Arial;
+text-align:center;
+}
+
+.cards{
+display:flex;
+justify-content:center;
+gap:30px;
+margin-top:40px;
+}
+
+.card{
+background:#1b263b;
+padding:20px;
+border-radius:10px;
+width:200px;
+}
+
+</style></head><body><h1>Smart Nifty Trading Dashboard</h1><div class="cards"><div class="card">
+<h2>Nifty</h2>
+<div id="niftyPrice">Loading...</div>
+<div id="niftyChange"></div>
+</div><div class="card">
+<h2>BankNifty</h2>
+<div id="bankniftyPrice">Loading...</div>
+<div id="bankniftyChange"></div>
+</div></div><script>
+
+const API="https://6ce2281c-0177-450d-a415-435777f8fa8b-00-3p940kkkk172is.janeway.replit.dev";
+
+async function load(){
+
+let res=await fetch(API+"/api/nifty")
+let data=await res.json()
+
+document.getElementById("niftyPrice").innerText=data.price
+document.getElementById("niftyChange").innerText=data.changePct+"%"
+
+let res2=await fetch(API+"/api/banknifty")
+let data2=await res2.json()
+
+document.getElementById("bankniftyPrice").innerText=data2.price
+document.getElementById("bankniftyChange").innerText=data2.changePct+"%"
+
+}
+
+load()
+setInterval(load,5000)
+
+</script></body>
+</html>
